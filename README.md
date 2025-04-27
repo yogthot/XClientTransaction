@@ -14,6 +14,14 @@ Twitter X-Client-Transaction-Id generator written in python.
 
 > Reference : https://antibot.blog/twitter/
 
+## Installation
+
+Install XClientTransaction with pip
+
+```python
+pip install XClientTransaction
+```
+
 ## Usage/Examples
 
 ```python
