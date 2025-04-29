@@ -102,7 +102,7 @@ class ClientTransaction:
         cubic = Cubic(curves)
         val = cubic.get_value(target_time)
         color = interpolate(from_color, to_color, val)
-        color = [value if value > 0 else 0 for value in color]
+        color = [max(0, min(255, value)) for value in color]
         rotation = interpolate(from_rotation, to_rotation, val)
         matrix = convert_rotation_to_matrix(rotation[0])
         # str_arr = [format(int(round(color[i])), '02x') for i in range(len(color) - 1)]
