@@ -11,7 +11,7 @@ from functools import reduce
 from .cubic_curve import Cubic
 from .interpolate import interpolate
 from .rotation import convert_rotation_to_matrix
-from .utils import float_to_hex, is_odd, base64_encode
+from .utils import float_to_hex, is_odd, base64_encode, js_round
 
 ON_DEMAND_FILE_REGEX = re.compile(
     r"""['|\"]{1}ondemand\.s['|\"]{1}:\s*['|\"]{1}([\w]*)['|\"]{1}""", flags=(re.VERBOSE | re.MULTILINE))
@@ -127,7 +127,7 @@ class ClientTransaction:
         row_index = key_bytes[self.DEFAULT_ROW_INDEX] % 16
         frame_time = reduce(lambda num1, num2: num1*num2,
                             [key_bytes[index] % 16 for index in self.DEFAULT_KEY_BYTES_INDICES])
-        frame_time = round(frame_time / 10) * 10
+        frame_time = js_round(frame_time / 10) * 10
         arr = self.get_2d_array(key_bytes, response)
         frame_row = arr[row_index]
 
