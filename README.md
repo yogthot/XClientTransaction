@@ -12,7 +12,11 @@ Twitter X-Client-Transaction-Id generator written in python.
 <a href="https://discord.gg/pHY6CU5Ke4"> <img alt="Discord" src="https://img.shields.io/discord/1149281691479851018?style=flat&logo=discord&logoColor=white"></a>
 <a href="https://twitter.com/isarabjitdhiman"> <img src="https://img.shields.io/twitter/follow/iSarabjitDhiman?style=social"></a>
 
-> Reference : https://antibot.blog/twitter/
+Reference :
+
+- [Twitter Header: Part 1, Deobfuscation](https://antibot.blog/posts/1741552025433)
+- [Twitter Header: Part 2, Reverse Engineering](https://antibot.blog/posts/1741552092462)
+- [Twitter Header: Part 3, Generating the header](https://antibot.blog/posts/1741552163416)
 
 ## Installation
 
@@ -34,12 +38,28 @@ OR
 from x_client_transaction import ClientTransaction
 
 response = None # get twitter home page response (check quickstart.py)
-method = "POST"
-path = "/1.1/jot/client_event.json"
 
-ct = ClientTransaction(home_page_response=response)
-print(ct.generate_transaction_id(method=method, path=path))
-print(ct.generate_transaction_id(method="GET", path="/i/api/1.1/hashflags.json"))
+# Example 1
+# replace the url and http method as per your use case
+url = "https://x.com/i/api/1.1/jot/client_event.json"
+method = "POST"
+path = urlparse(url=url).path
+# path will be /i/api/1.1/jot/client_event.json in this case
+
+# Example 2
+user_by_screen_name_url = "https://x.com/i/api/graphql/1VOOyvKkiI3FMmkeDNxM9A/UserByScreenName"
+user_by_screen_name_http_method = "GET"
+user_by_screen_name_path = urlparse(url=url).path
+# path will be /i/api/graphql/1VOOyvKkiI3FMmkeDNxM9A/UserByScreenName in this case
+
+
+ct = ClientTransaction(response)
+transaction_id = ct.generate_transaction_id(method=method, path=path)
+transaction_id_for_user_by_screen_name_endpoint = ct.generate_transaction_id(
+    method=user_by_screen_name_http_method, path=user_by_screen_name_path)
+
+print(transaction_id)
+print(transaction_id_for_user_by_screen_name_endpoint)
 
 ```
 
