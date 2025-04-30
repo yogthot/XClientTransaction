@@ -2,7 +2,7 @@ import re
 import bs4
 import base64
 from typing import Union
-import decimal
+import math
 
 
 def handle_x_migration(session):
@@ -70,11 +70,8 @@ def is_odd(num: Union[int, float]):
         return -1.0
     return 0.0
 
-def js_round(num: Union[int, float], ndigits: int=0):
-    with decimal.localcontext() as ctx:
-        ctx.rounding = decimal.ROUND_HALF_UP
-        dec = decimal.Decimal(num)
-        return float(round(dec, ndigits))
+def js_round(num: Union[int, float]):
+    return math.floor(num + 0.5)
 
 def base64_encode(string):
     string = string.encode() if isinstance(string, str) else string
