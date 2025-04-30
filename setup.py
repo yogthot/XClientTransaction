@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = "0.0.3"
+VERSION = "0.0.6"
 SHORT_DESCRIPTION = "Twitter X-Client-Transaction-Id generator written in python."
 
 with open("requirements.txt") as file:
@@ -10,7 +10,7 @@ with open("README.md", "r") as file:
 
 
 setup(
-    name="XClientTransaction",
+    name="xclienttransaction",
     version=VERSION,
     description=SHORT_DESCRIPTION,
     long_description=DESCRIPTION,
